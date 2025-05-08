@@ -14,12 +14,16 @@
 .nav-ul li::after {
   content: "";
   position: absolute;
-  background-color: black;
   height: 1.5px;
+  background-color: #313131;
   width: 0;
   left: 0;
   bottom: -2px;
   transition: 0.3s;
+}
+
+html.dark .nav-ul li::after {
+  background-color: white;
 }
 
 .nav-ul li:hover::after {

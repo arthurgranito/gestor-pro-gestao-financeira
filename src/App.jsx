@@ -4,19 +4,22 @@ import RelatorioVisual from "./components/RelatorioVisual";
 import Despesas from "./components/Despesas";
 import Receitas from "./components/Recebimentos";
 import Mediuns from "./components/Funcionarios";
-import React from 'react';
+import React from "react";
+import { ThemeProvider } from "./components/theme-provider";
 
 function App() {
   return (
-    <>
-      <Nav />
-      <Routes>
-        <Route path="/" element={<RelatorioVisual />} />
-        <Route path="/despesas" element={<Despesas />} />
-        <Route path="/receitas" element={<Receitas />} />
-        <Route path="/mediuns" element={<Mediuns />} />
-      </Routes>
-    </>
+    <ThemeProvider>
+      <>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<RelatorioVisual />} />
+          <Route path="/despesas" element={<Despesas />} />
+          <Route path="/receitas" element={<Receitas />} />
+          <Route path="/mediuns" element={<Mediuns />} />
+        </Routes>
+      </>
+    </ThemeProvider>
   );
 }
 

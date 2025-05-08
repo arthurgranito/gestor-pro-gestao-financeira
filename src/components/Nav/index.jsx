@@ -1,5 +1,5 @@
 import { Menu } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import {
   Drawer,
@@ -11,16 +11,22 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import { Link } from "react-router-dom";
-import logo from '../../../public/icon.png'
+import logo from "../../../public/icon.png";
+import ModeToggle from "../ModeToggle";
+import { useTheme } from "../theme-provider";
 
 const Nav = () => {
+  const { theme } = useTheme();
+
   return (
     <>
       <nav className="flex items-center justify-between p-4">
         <Link to="/">
           <div className="flex items-center justify-center">
-            <img src={logo} alt="Logo Gestor Pro" className="w-14"/>
-            <h1 className="sm:text-4xl text-3xl font-bold text-[#313131]">Gestor Pro</h1>
+            <img src={logo} alt="Logo Gestor Pro" className="w-14" />
+            <h1 className="sm:text-4xl text-3xl font-bold text-[#313131] dark:text-white">
+              Gestor Pro
+            </h1>
           </div>
         </Link>
         <div className="lg:hidden">
@@ -33,10 +39,12 @@ const Nav = () => {
             <DrawerContent>
               <DrawerHeader>
                 <DrawerTitle className="flex items-center justify-center">
-                  <img src={logo} alt="Logo Gestor Pro" className="w-6"/>
+                  <img src={logo} alt="Logo Gestor Pro" className="w-6" />
                   Gestor Pro
                 </DrawerTitle>
-                <DrawerDescription className="text-center">Controle financeiro de empresas</DrawerDescription>
+                <DrawerDescription className="text-center">
+                  Controle financeiro de empresas
+                </DrawerDescription>
               </DrawerHeader>
               <div className="p-4 flex flex-col gap-3">
                 <DrawerClose asChild>
@@ -68,12 +76,15 @@ const Nav = () => {
                   </Link>
                 </DrawerClose>
               </div>
+              <div className="px-4 pb-4 w-full">
+                <ModeToggle />
+              </div>
             </DrawerContent>
           </Drawer>
         </div>
 
         <div className="hidden lg:flex">
-          <ul className="flex gap-4 nav-ul">
+          <ul className="flex gap-4 nav-ul items-center justify-center">
             <Link to="/">
               <li>Relatório Visual</li>
             </Link>
@@ -86,6 +97,8 @@ const Nav = () => {
             <Link to="/mediuns">
               <li>Funcionários</li>
             </Link>
+
+            <ModeToggle />
           </ul>
         </div>
       </nav>
