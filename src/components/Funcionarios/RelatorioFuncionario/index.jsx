@@ -15,8 +15,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogHeader } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import Paginacao from '@/components/Paginacao';
 
 function RelatorioFuncionarios() {
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const [paginaTransacoes, setPaginaTransacoes] = useState(1);
   const [funcionariosSaldoTotal, setFuncionariosSaldoTotal] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,6 +28,10 @@ function RelatorioFuncionarios() {
   const [transacoes, setTransacoes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredfuncionariosSaldoTotal, setFilteredFuncionariosSaldoTotal] = useState([]);
+  const itensPorPagina = 10;
+  const transacoesPorPagina = 5;
+
+  const totalPaginas = Math.ceil(filteredfuncionariosSaldoTotal.length / itensPorPagina);
 
   useEffect(() => {
     const fetchSaldoTotalFuncionarios = async () => {
@@ -65,6 +72,7 @@ function RelatorioFuncionarios() {
   }, [selectedFuncionario?.id, isModalOpen]);
 
   const handleOpenModal = (funcionario) => {
+    setPaginaTransacoes(1);
     setSelectedFuncionario(funcionario);
     setIsModalOpen(true);
   };
@@ -77,12 +85,10 @@ function RelatorioFuncionarios() {
   const handleSearch = (event) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
-    const filtered = funcionariosSaldoTotal.filter(funcionario =>
-      funcionario.nome.toLowerCase().includes(term)
-    );
+    const filtered = funcionariosSaldoTotal.filter(funcionario => funcionario.nome.toLowerCase().includes(term));
     setFilteredFuncionariosSaldoTotal(filtered);
+    setPaginaAtual(1);
   };
-
   const formatDate = (data) => {
     if (data instanceof Timestamp) {
       data = fromUnixTime(data.seconds);
@@ -105,6 +111,11 @@ function RelatorioFuncionarios() {
   if (error) {
     return <div>{error}</div>;
   }
+
+  const funcionariosPaginados = filteredfuncionariosSaldoTotal.slice(
+    (paginaAtual - 1) * itensPorPagina,
+    paginaAtual * itensPorPagina
+  )
 
   return (
     <div>
@@ -133,7 +144,7 @@ function RelatorioFuncionarios() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredfuncionariosSaldoTotal.map(funcionario => (
+              {funcionariosPaginados.map(funcionario => (
                 <TableRow key={funcionario.id} className="w-full cursor-pointer hover:underline" onClick={() => handleOpenModal(funcionario)}>
                   <TableCell>{funcionario.nome}</TableCell>
                   <TableCell className="text-right">R${funcionario.saldoTotal?.toFixed(2)}</TableCell>
@@ -141,6 +152,7 @@ function RelatorioFuncionarios() {
               ))}
             </TableBody>
           </Table>
+          <Paginacao onPageChange={setPaginaAtual} paginaAtual={paginaAtual} totalPaginas={totalPaginas} />
         </CardContent>
       </Card>
 
@@ -161,26 +173,31 @@ function RelatorioFuncionarios() {
                 </CardHeader>
                 <CardContent>
                   {transacoes.length > 0 ? (
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Data</TableHead>
-                          <TableHead>Descrição</TableHead>
-                          <TableHead>Tipo</TableHead>
-                          <TableHead className="text-right">Valor</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {transacoes.map((transacao, index) => (
-                          <TableRow key={index}>
-                            <TableCell>{formatDate(transacao.data)}</TableCell>
-                            <TableCell>{transacao.descricao}</TableCell>
-                            <TableCell className="capitalize">{transacao.tipo}</TableCell>
-                            <TableCell className="text-right">R$ {transacao.valor?.toFixed(2)}</TableCell>
+                    <>
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Data</TableHead>
+                            <TableHead>Descrição</TableHead>
+                            <TableHead>Tipo</TableHead>
+                            <TableHead className="text-right">Valor</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
+                        </TableHeader>
+                        <TableBody>
+                          {transacoes.slice((paginaTransacoes - 1) * transacoesPorPagina, paginaTransacoes * transacoesPorPagina).map((transacao, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{formatDate(transacao.data)}</TableCell>
+                              <TableCell>{transacao.descricao}</TableCell>
+                              <TableCell className="capitalize">{transacao.tipo}</TableCell>
+                              <TableCell className="text-right">R$ {transacao.valor?.toFixed(2)}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                      {transacoes.length > transacoesPorPagina && (
+                        <Paginacao paginaAtual={paginaTransacoes} onPageChange={setPaginaTransacoes} totalPaginas={Math.ceil(transacoes.length / transacoesPorPagina)}/>
+                      )}
+                    </>
                   ) : (
                     <p className='text-xs text-center'>Nenhuma transação registrada para este funcionário.</p>
                   )}

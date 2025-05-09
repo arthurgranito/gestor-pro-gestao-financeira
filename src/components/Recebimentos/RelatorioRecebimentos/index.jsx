@@ -11,8 +11,11 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItem, SelectTrigger, SelectValue, SelectContent } from '@/components/ui/select';
+import Paginacao from '@/components/Paginacao';
 
 function RelatorioReceitas() {
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const itensPorPagina = 10;
     const [receitas, setReceitas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -181,6 +184,11 @@ function RelatorioReceitas() {
         return dataFormatada;
     }
 
+    const indiceInicial = (paginaAtual - 1) * itensPorPagina;
+    const indiceFinal = indiceInicial + itensPorPagina;
+    const receitasPaginadas = receitasFiltradas.slice(indiceInicial, indiceFinal);
+    const totalPaginas = Math.ceil(receitasFiltradas.length / itensPorPagina);
+
     return (
         <Card>
             <CardHeader>
@@ -262,7 +270,7 @@ function RelatorioReceitas() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {receitasFiltradas.map(receita => (
+                            {receitasPaginadas.map(receita => (
                                 <TableRow key={receita.id}>
                                     <TableCell>{formatarData(receita.data)}</TableCell>
                                     <TableCell className="capitalize">{receita.categoria}</TableCell>
@@ -273,6 +281,7 @@ function RelatorioReceitas() {
                             ))}
                         </TableBody>
                     </Table>
+                    <Paginacao paginaAtual={paginaAtual} totalPaginas={totalPaginas} onPageChange={setPaginaAtual} />
                 </div>
             </CardContent>
         </Card>

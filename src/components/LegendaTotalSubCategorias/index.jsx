@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -14,8 +14,17 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import Paginacao from "../Paginacao";
 
 const LegendaTotalSubCategorias = ({ totalSubCategorias, titulo, descricao }) => {
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const itensPorPagina = 5;
+
+  const totalPaginas = Math.ceil(totalSubCategorias.length / itensPorPagina);
+  const indiceInicio = (paginaAtual - 1) * itensPorPagina;
+  const indiceFim = indiceInicio + itensPorPagina;
+  const itensPaginaAtual = totalSubCategorias.slice(indiceInicio, indiceFim);
+
   return (
     <Card className="flex flex-col flex-1">
       <CardHeader className="items-center pb-0">
@@ -32,8 +41,8 @@ const LegendaTotalSubCategorias = ({ totalSubCategorias, titulo, descricao }) =>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {totalSubCategorias.map((categoria) => (
-              <TableRow key={categoria.categoria}>
+            {itensPaginaAtual.map((categoria) => (
+              <TableRow key={`${categoria.categoria}-${categoria.subcategoria}`}>
                 <TableCell>{categoria.categoria}</TableCell>
                 <TableCell>{categoria.subcategoria}</TableCell>
                 <TableCell className="text-right">
@@ -43,6 +52,10 @@ const LegendaTotalSubCategorias = ({ totalSubCategorias, titulo, descricao }) =>
             ))}
           </TableBody>
         </Table>
+
+        {totalPaginas > 1 && (
+          <Paginacao onPageChange={setPaginaAtual} paginaAtual={paginaAtual} totalPaginas={totalPaginas}/>
+        )}
       </CardContent>
     </Card>
   );

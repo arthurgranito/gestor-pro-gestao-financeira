@@ -24,6 +24,7 @@ import {
   SelectValue,
   SelectContent,
 } from "@/components/ui/select";
+import Paginacao from "@/components/Paginacao";
 
 function RelatorioDespesas() {
   const [despesas, setDespesas] = useState([]);
@@ -39,6 +40,14 @@ function RelatorioDespesas() {
   const [subcategorias, setSubcategorias] = useState([]);
   const [ordenacao, setOrdenacao] = useState(null);
   const [direcaoOrdenacao, setDirecaoOrdenacao] = useState("desc");
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const itensPorPagina = 10;
+
+  const indexInicial = (paginaAtual - 1) * itensPorPagina;
+  const indexFinal = indexInicial + itensPorPagina;
+  const despesasPaginadas = despesasFiltradas.slice(indexInicial, indexFinal);
+
+  const totalPaginas = Math.ceil(despesasFiltradas.length / itensPorPagina);
 
   useEffect(() => {
     const fetchDespesas = async () => {
@@ -398,7 +407,7 @@ function RelatorioDespesas() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {despesasFiltradas.map((despesa) => (
+                {despesasPaginadas.map((despesa) => (
                   <TableRow key={despesa.id}>
                     <TableCell>{formatarData(despesa.data)}</TableCell>
                     <TableCell className="capitalize">{despesa.categoria}</TableCell>
@@ -411,6 +420,7 @@ function RelatorioDespesas() {
                 ))}
               </TableBody>
             </Table>
+            <Paginacao onPageChange={setPaginaAtual} paginaAtual={paginaAtual} totalPaginas={totalPaginas}/>
           </div>
         </CardContent>
       </Card>

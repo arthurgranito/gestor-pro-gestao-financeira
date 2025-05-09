@@ -21,26 +21,19 @@ const cores = [
 
 const useFirebaseData = (
   collectionName,
-
   documentIdParaSubcolecao = null,
-
   subcollectionName = null
 ) => {
   const [data, setData] = useState([]);
-
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-
       setError(null);
-
       try {
         let ref;
-
         if (documentIdParaSubcolecao && subcollectionName) {
           const docRef = doc(db, collectionName, documentIdParaSubcolecao);
           ref = collection(docRef, subcollectionName);
@@ -96,13 +89,11 @@ const processarDadosParaSubCategorias = (
   subcategoriaPadrao = "Outros"
 ) => {
   const totaisPorSubcategoria = {};
-
   dados.forEach((item) => {
     const categoria = item?.[nomeCampoCategoria] || categoriaPadrao;
     const subcategoria = item?.[nomeCampoSubcategoria] || subcategoriaPadrao;
     const valor = parseFloat(item?.[nomeCampoValor] || 0);
     const chave = `${categoria}-${subcategoria}`;
-
     totaisPorSubcategoria[chave] = (totaisPorSubcategoria[chave] || 0) + valor;
   });
 
@@ -128,11 +119,9 @@ const processarDadosParaSubCategorias = (
 
 const criarConfiguracaoCores = (dados, coresBase) => {
   const config = {};
-
   dados.forEach((item, index) => {
     config[item.name] = {
       label: item.name,
-
       color: coresBase[index % coresBase.length],
     };
   });
