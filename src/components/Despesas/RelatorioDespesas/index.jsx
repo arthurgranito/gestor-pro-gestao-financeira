@@ -242,6 +242,7 @@ function RelatorioDespesas() {
     });
 
     setDespesasFiltradas(ordenarDespesas(resultadosFiltrados));
+    setPaginaAtual(1);
   }, [
     despesas,
     dataInicialFiltro,

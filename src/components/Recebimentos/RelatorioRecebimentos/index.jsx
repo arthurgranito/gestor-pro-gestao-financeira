@@ -111,30 +111,51 @@ function RelatorioReceitas() {
         setReceitasFiltradas(ordenarReceitas(receitas));
     };
 
-    const ordenarReceitas = useCallback((listaDeReceitas) => {
-        if (!ordenacao) return listaDeReceitas;
+    const ordenarReceitas = useCallback(
+        (lista) => {
+            if (!ordenacao) return lista;
 
-        return [...listaDeReceitas].sort((a, b) => {
-            let valorA, valorB;
+            return [...lista].sort((a, b) => {
+                let valorA, valorB;
 
-            switch (ordenacao) {
-                case 'data':
-                    valorA = a.data?.seconds ? new Date(a.data.seconds * 1000) : new Date(a.data);
-                    valorB = b.data?.seconds ? new Date(b.data.seconds * 1000) : new Date(b.data);
-                    break;
-                default:
-                    return 0;
-            }
+                switch (ordenacao) {
+                    case "data":
+                        valorA = a.data?.seconds
+                            ? new Date(a.data.seconds * 1000)
+                            : new Date(a.data);
+                        valorB = b.data?.seconds
+                            ? new Date(b.data.seconds * 1000)
+                            : new Date(b.data);
+                        break;
+                    case "descricao":
+                        valorA = a.descricao || "";
+                        valorB = b.descricao || "";
+                        break;
+                    case "valor":
+                        valorA = a.valor || 0;
+                        valorB = b.valor || 0;
+                        break
+                    case "categoria":
+                        valorA = a.categoria || "";
+                        valorB = b.categoria || "";
+                        break;
+                    case "subcategoria":
+                        valorA = a.subcategoria || "";
+                        valorB = b.subcategoria || "";
+                        break;
+                    default:
+                        return 0;
+                }
 
-            if (valorA < valorB) {
-                return direcaoOrdenacao === 'asc' ? -1 : 1;
-            }
-            if (valorA > valorB) {
-                return direcaoOrdenacao === 'asc' ? 1 : -1;
-            }
-            return 0;
-        });
-    }, [ordenacao, direcaoOrdenacao]);
+                if (typeof valorA === "string" && typeof valorB === "string") {
+                    return direcaoOrdenacao === "asc" ? valorA.localeCompare(valorB) : valorB.localeCompare(valorA);
+                }
+
+                return direcaoOrdenacao === "asc" ? valorA - valorB : valorB - valorA;
+            });
+        },
+        [ordenacao, direcaoOrdenacao]
+    )
 
     const filtrarReceitas = useCallback(() => {
         const dataInicial = dataInicialFiltro ? new Date(dataInicialFiltro) : null;
@@ -247,7 +268,8 @@ function RelatorioReceitas() {
                                     <SelectValue placeholder="Todas as Subcategorias" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {subcategorias.map((subcategoria) => (
+                                    <SelectItem value={null}>Todas as Subcategorias</SelectItem>
+                                    {subcategorias.slice(1).map((subcategoria) => (
                                         <SelectItem key={subcategoria.id} value={subcategoria.nome}>{subcategoria.nome}</SelectItem>
                                     ))}
                                 </SelectContent>
@@ -264,10 +286,10 @@ function RelatorioReceitas() {
                                     Data
                                     {ordenacao === 'data' && (direcaoOrdenacao === 'asc' ? ' ▲' : ' ▼')}
                                 </TableHead>
-                                <TableHead>Categoria</TableHead>
-                                <TableHead>Subcategoria</TableHead>
-                                <TableHead>Descrição</TableHead>
-                                <TableHead className="text-right">Valor</TableHead>
+                                <TableHead className="cursor-pointer" onClick={() => handleOrdenar("categoria")}>Categoria {ordenacao === "categoria" && (direcaoOrdenacao === "asc" ? ' ▲' : ' ▼')}</TableHead>
+                                <TableHead className="cursor-pointer" onClick={() => handleOrdenar("subcategoria")}>Subcategoria {ordenacao === "subcategoria" && (direcaoOrdenacao === "asc" ? '▲' : ' ▼')}</TableHead>
+                                <TableHead className="cursor-pointer" onClick={() => handleOrdenar("descricao")}>Descrição {ordenacao === "descricao" && (direcaoOrdenacao === "asc" ? ' ▲' : ' ▼')}</TableHead>
+                                <TableHead className="text-right cursor-pointer" onClick={() => handleOrdenar("valor")}>Valor {ordenacao === "valor" && (direcaoOrdenacao === "asc" ? ' ▲' : ' ▼')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
