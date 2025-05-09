@@ -193,14 +193,14 @@ function RelatorioFuncionarios() {
     const nome = searchNome.toLowerCase();
     const setorSelecionado = setorFiltro;
     const cargoSelecionado = cargoFiltro;
-
+  
     let resultadosFiltrados = funcionariosSaldoTotal.filter((funcionario) => {
-      const nomeLowerCase = funcionario.nome?.toLowerCase() || "";
-      const funcionarioSetor = funcionario.setor || "";
-      const funcionarioCargo = funcionario.cargo || "";
-
+      const nomeLowerCase = funcionario.nome.toLowerCase();
+      const funcionarioSetor = funcionario.setor || '';
+      const funcionarioCargo = funcionario.cargo || '';
+  
       const filtroNome = !searchNome || nomeLowerCase.includes(nome);
-
+  
       let filtroSetor = true;
       if (
         setorSelecionado &&
@@ -209,7 +209,7 @@ function RelatorioFuncionarios() {
       ) {
         filtroSetor = funcionarioSetor === setorSelecionado;
       }
-
+  
       let filtroCargo = true;
       if (
         cargoSelecionado &&
@@ -218,12 +218,12 @@ function RelatorioFuncionarios() {
       ) {
         filtroCargo = funcionarioCargo === cargoSelecionado;
       }
-
+  
       return (
         filtroNome && filtroCargo && filtroSetor
       );
     });
-
+  
     setFilteredFuncionariosSaldoTotal(ordenarFuncionarios(resultadosFiltrados));
     setPaginaAtual(1);
   }, [
@@ -232,7 +232,8 @@ function RelatorioFuncionarios() {
     setorFiltro,
     cargoFiltro,
     ordenarFuncionarios,
-  ])
+  ]);
+    
 
   useEffect(() => {
     filtrarFuncionarios();
@@ -287,7 +288,7 @@ function RelatorioFuncionarios() {
                 id="search"
                 placeholder="Digite o nome do funcionário..."
                 value={searchNome}
-                onChange={setSearchNome}
+                onChange={(e) => setSearchNome(e.target.value)}
               />
             </div>
             <div>
