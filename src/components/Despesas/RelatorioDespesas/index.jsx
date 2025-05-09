@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/select";
 import Paginacao from "@/components/Paginacao";
 import { formatarValor } from "@/components/utils/FormatarValor";
+import Loading from "@/components/utils/Loading";
 
 function RelatorioDespesas() {
   const [despesas, setDespesas] = useState([]);
@@ -266,7 +267,7 @@ function RelatorioDespesas() {
   ]);
 
   if (loading) {
-    return <div>Carregando relatório de despesas...</div>;
+    return <Loading />;
   }
 
   if (error) {

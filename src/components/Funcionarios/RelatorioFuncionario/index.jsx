@@ -19,6 +19,7 @@ import Paginacao from '@/components/Paginacao';
 import { formatarValor } from '@/components/utils/FormatarValor';
 import { Select } from '@/components/ui/select';
 import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Loading from '@/components/utils/Loading';
 
 function RelatorioFuncionarios() {
   const [paginaAtual, setPaginaAtual] = useState(1);
@@ -261,7 +262,7 @@ function RelatorioFuncionarios() {
   };
 
   if (loading) {
-    return <div>Carregando saldo dos funcionários...</div>;
+    return <Loading />;
   }
 
   if (error) {

@@ -8,6 +8,7 @@ import GraficoDePizza from "../GraficoDePizza";
 
 import LegendaTotalCategorias from "../LegendaTotalCategorias";
 import LegendaTotalSubCategorias from "../LegendaTotalSubCategorias";
+import Loading from "../utils/Loading";
 
 const computedStyles = getComputedStyle(document.documentElement);
 
@@ -206,7 +207,7 @@ export const RelatorioVisual = () => {
   }, [dadosReceitasSubcategoria]);
 
   if (loadingDespesas || loadingReceitas) {
-    return <div>Carregando relatório...</div>;
+    return <Loading />;
   }
 
   if (errorDespesas || errorReceitas) {

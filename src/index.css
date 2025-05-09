@@ -27,6 +27,48 @@ html.dark .nav-ul li::after {
   background-color: white;
 }
 
+html.dark .loading {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border: 10px solid oklch(0.65 0.18 250);
+  border-top: 10px solid transparent;
+}
+
+html.dark .loading-container {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #313131;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-container {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border: 10px solid oklch(0.75 0.18 190);
+  border-top: 10px solid transparent;
+}
+
 .nav-ul li:hover::after {
   width: 100%;
 }
@@ -174,7 +216,6 @@ html.dark .nav-ul li::after {
   --sidebar-border: oklch(0.4 0.005 270 / 40%);
   --sidebar-ring: oklch(0.65 0.18 250);
 }
-
 
 @layer base {
   * {

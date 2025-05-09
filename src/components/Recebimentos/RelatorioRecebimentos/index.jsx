@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectItem, SelectTrigger, SelectValue, SelectContent } from '@/components/ui/select';
 import Paginacao from '@/components/Paginacao';
 import { formatarValor } from '@/components/utils/FormatarValor';
+import Loading from '@/components/utils/Loading';
 
 function RelatorioReceitas() {
     const [paginaAtual, setPaginaAtual] = useState(1);
@@ -193,7 +194,7 @@ function RelatorioReceitas() {
     }, [receitas, dataInicialFiltro, dataFinalFiltro, descricaoFiltro, categoriaFiltro, filtrarReceitas]);
 
     if (loading) {
-        return <div>Carregando relatório de receitas...</div>;
+        return <Loading />;
     }
 
     if (error) {
