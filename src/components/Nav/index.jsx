@@ -59,14 +59,14 @@ const Nav = () => {
                   </Link>
                 </DrawerClose>
                 <DrawerClose asChild>
-                  <Link to="/receitas" className="w-full">
+                  <Link to="/recebimentos" className="w-full">
                     <Button variant="outline" className="w-full">
                       Recebimentos
                     </Button>
                   </Link>
                 </DrawerClose>
                 <DrawerClose asChild>
-                  <Link to="/mediuns" className="w-full">
+                  <Link to="/funcionarios" className="w-full">
                     <Button variant="outline" className="w-full">
                       Funcionários
                     </Button>
