@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItem, SelectTrigger, SelectValue, SelectContent } from '@/components/ui/select';
 import Paginacao from '@/components/Paginacao';
+import { formatarValor } from '@/components/utils/FormatarValor';
 
 function RelatorioReceitas() {
     const [paginaAtual, setPaginaAtual] = useState(1);
@@ -276,7 +277,7 @@ function RelatorioReceitas() {
                                     <TableCell className="capitalize">{receita.categoria}</TableCell>
                                     <TableCell className="capitalize">{receita.subcategoria}</TableCell>
                                     <TableCell className="capitalize">{receita.descricao}</TableCell>
-                                    <TableCell className="text-right">R$ {receita.valor?.toFixed(2)}</TableCell>
+                                    <TableCell className="text-right">{formatarValor(receita.valor)}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

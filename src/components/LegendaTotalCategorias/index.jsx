@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { formatarValor } from "../utils/FormatarValor";
 
 const LegendaTotalCategorias = ({ totalCategorias, titulo, descricao }) => {
   return (
@@ -21,7 +22,7 @@ const LegendaTotalCategorias = ({ totalCategorias, titulo, descricao }) => {
                 {totalCategorias.map(categoria => (
                     <TableRow key={categoria.name}>
                         <TableCell>{categoria.name}</TableCell>
-                        <TableCell className="text-right">R$ {categoria.value.toFixed(2)}</TableCell>
+                        <TableCell className="text-right"> {formatarValor(categoria.value)}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>

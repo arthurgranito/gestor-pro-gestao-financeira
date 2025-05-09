@@ -25,6 +25,7 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 import Paginacao from "@/components/Paginacao";
+import { formatarValor } from "@/components/utils/FormatarValor";
 
 function RelatorioDespesas() {
   const [despesas, setDespesas] = useState([]);
@@ -414,7 +415,7 @@ function RelatorioDespesas() {
                     <TableCell className="capitalize">{despesa.subcategoria}</TableCell>
                     <TableCell className="capitalize">{despesa.descricao}</TableCell>
                     <TableCell className="text-right">
-                      R$ {despesa.valor?.toFixed(2)}
+                      {formatarValor(despesa.valor)}
                     </TableCell>
                   </TableRow>
                 ))}

@@ -14,6 +14,7 @@ import {
   Pie,
   PieChart,
 } from "recharts";
+import { formatarValor } from "../utils/FormatarValor";
 
 const GraficoDePizza = ({
   titulo,
@@ -45,7 +46,7 @@ const GraficoDePizza = ({
                 <ChartTooltipContent
                   label="Categoria"
                   value="Valor"
-                  formatter={(value) => `R$ ${value?.toFixed(2)}`}
+                  formatter={(value) => `${formatarValor(value)}`}
                   itemStyle={{ color: "var(--foreground)" }}
                   labelStyle={{ color: "var(--foreground)" }}
                   payloadLabel={({ name }) => name}
@@ -77,11 +78,7 @@ const GraficoDePizza = ({
                           dominantBaseline="middle"
                         >
                           <tspan className="fill-foreground text-2xl font-bold">
-                            R${" "}
-                            {total.toLocaleString(undefined, {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })}
+                            {formatarValor(total)}
                           </tspan>
                           <tspan
                             x={viewBox.cx}

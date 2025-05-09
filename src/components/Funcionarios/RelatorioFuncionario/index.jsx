@@ -16,6 +16,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogHeader } f
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Paginacao from '@/components/Paginacao';
+import { formatarValor } from '@/components/utils/FormatarValor';
 
 function RelatorioFuncionarios() {
   const [paginaAtual, setPaginaAtual] = useState(1);
@@ -147,7 +148,7 @@ function RelatorioFuncionarios() {
               {funcionariosPaginados.map(funcionario => (
                 <TableRow key={funcionario.id} className="w-full cursor-pointer hover:underline" onClick={() => handleOpenModal(funcionario)}>
                   <TableCell>{funcionario.nome}</TableCell>
-                  <TableCell className="text-right">R${funcionario.saldoTotal?.toFixed(2)}</TableCell>
+                  <TableCell className="text-right">{formatarValor(funcionario.saldoTotal)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -168,7 +169,7 @@ function RelatorioFuncionarios() {
             <div className='max-w-full overflow-auto'>
               <Card className="contribuicoes-table w-full min-w-[300]">
                 <CardHeader>
-                  <CardTitle>Saldo Total: R$ {selectedFuncionario.saldoTotal?.toFixed(2)}</CardTitle>
+                  <CardTitle>Saldo Total: {formatarValor(selectedFuncionario.saldoTotal)}</CardTitle>
                   <CardDescription>Transações:</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -189,7 +190,7 @@ function RelatorioFuncionarios() {
                               <TableCell>{formatDate(transacao.data)}</TableCell>
                               <TableCell>{transacao.descricao}</TableCell>
                               <TableCell className="capitalize">{transacao.tipo}</TableCell>
-                              <TableCell className="text-right">R$ {transacao.valor?.toFixed(2)}</TableCell>
+                              <TableCell className="text-right">{formatarValor(transacao.valor)}</TableCell>
                             </TableRow>
                           ))}
                         </TableBody>

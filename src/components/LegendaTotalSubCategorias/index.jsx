@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "../ui/table";
 import Paginacao from "../Paginacao";
+import { formatarValor } from "../utils/FormatarValor";
 
 const LegendaTotalSubCategorias = ({ totalSubCategorias, titulo, descricao }) => {
   const [paginaAtual, setPaginaAtual] = useState(1);
@@ -46,7 +47,7 @@ const LegendaTotalSubCategorias = ({ totalSubCategorias, titulo, descricao }) =>
                 <TableCell>{categoria.categoria}</TableCell>
                 <TableCell>{categoria.subcategoria}</TableCell>
                 <TableCell className="text-right">
-                  R$ {categoria.total.toFixed(2)}
+                  {formatarValor(categoria.total)}
                 </TableCell>
               </TableRow>
             ))}
