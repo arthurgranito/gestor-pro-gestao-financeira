@@ -88,10 +88,10 @@ const Nav = () => {
             <Link to="/despesas">
               <li>Despesas</li>
             </Link>
-            <Link to="/receitas">
+            <Link to="/recebimentos">
               <li>Recebimentos</li>
             </Link>
-            <Link to="/mediuns">
+            <Link to="/funcionarios">
               <li>Funcionários</li>
             </Link>
 
