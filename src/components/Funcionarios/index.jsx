@@ -4,7 +4,7 @@ import { TabsContent } from '@radix-ui/react-tabs'
 import RelatorioFuncionarios from './RelatorioFuncionario'
 import CadastroFuncionarios from './CadastroFuncionario'
 
-const Mediuns = () => {
+const Funcionarios = () => {
   return (
     <>
       <Tabs defaultValue="relatorio" className="m-4">
@@ -23,4 +23,4 @@ const Mediuns = () => {
   )
 }
 
-export default Mediuns
+export default Funcionarios
