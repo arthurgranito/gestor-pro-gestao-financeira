@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../../firebaseConfig'; // Ajuste o caminho
-
+import { db } from '../../../firebaseConfig';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -20,16 +19,16 @@ function Cadastro() {
         setErrorMessage('');
 
         try {
-            const docRef = await addDoc(collection(db, 'mediuns'), {
+            const docRef = await addDoc(collection(db, 'funcionarios'), {
                 nome: nome,
-                debito_total: 0, // Inicializa o débito total como 0
+                saldoTotal: 0,
             });
-            console.log('Médium cadastrado com ID: ', docRef.id);
-            setSuccessMessage('Médium cadastrado com sucesso!');
+            console.log('Funcionário cadastrado com ID: ', docRef.id);
+            setSuccessMessage('Funcionário cadastrado com sucesso!');
             setNome('');
         } catch (error) {
-            console.error('Erro ao cadastrar médium:', error);
-            setErrorMessage('Erro ao cadastrar médium. Tente novamente.');
+            console.error('Erro ao cadastrar funcionário:', error);
+            setErrorMessage('Erro ao cadastrar funcionário. Tente novamente.');
         } finally {
             setIsLoading(false);
         }

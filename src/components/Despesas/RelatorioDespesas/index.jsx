@@ -2,11 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import {
   collection,
   getDocs,
-  doc,
-  getDoc, // Importe getDoc
 } from "firebase/firestore";
 import { db } from "../../../../firebaseConfig";
-import { format, fromUnixTime } from "date-fns";
+import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {

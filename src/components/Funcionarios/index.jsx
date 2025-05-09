@@ -1,8 +1,8 @@
 import React from 'react'
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs'
 import { TabsContent } from '@radix-ui/react-tabs'
-import RelatorioMediuns from './RelatorioMediuns'
-import CadastroMedium from './CadastroMedium'
+import RelatorioFuncionarios from './RelatorioFuncionario'
+import CadastroFuncionarios from './CadastroFuncionario'
 
 const Mediuns = () => {
   return (
@@ -13,10 +13,10 @@ const Mediuns = () => {
           <TabsTrigger value="cadastro" className="cursor-pointer">Cadastro</TabsTrigger>
         </TabsList>
         <TabsContent value="relatorio">
-          <RelatorioMediuns />
+          <RelatorioFuncionarios />
         </TabsContent>
         <TabsContent value="cadastro">
-          <CadastroMedium />
+          <CadastroFuncionarios />
         </TabsContent>
       </Tabs>
     </>

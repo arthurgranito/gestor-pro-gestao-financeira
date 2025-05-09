@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
     collection,
-    getDocs,
-    doc,
-    Timestamp
+    getDocs
 } from 'firebase/firestore';
 import { db } from '../../../../firebaseConfig';
-import { format, fromUnixTime } from 'date-fns';
+import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
@@ -106,8 +104,7 @@ function RelatorioReceitas() {
             setOrdenacao(coluna);
             setDirecaoOrdenacao('asc');
         }
-        // Ordenar imediatamente quando a ordenação for alterada
-        setReceitasFiltradas(ordenarReceitas(receitas)); // Usar 'receitas' em vez de 'receitasFiltradas'
+        setReceitasFiltradas(ordenarReceitas(receitas));
     };
 
     const ordenarReceitas = useCallback((listaDeReceitas) => {

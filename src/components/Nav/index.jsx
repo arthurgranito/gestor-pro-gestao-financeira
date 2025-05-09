@@ -1,5 +1,5 @@
 import { Menu } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import {
   Drawer,
@@ -13,11 +13,8 @@ import {
 import { Link } from "react-router-dom";
 import logo from "../../../public/icon.png";
 import ModeToggle from "../ModeToggle";
-import { useTheme } from "../theme-provider";
 
 const Nav = () => {
-  const { theme } = useTheme();
-
   return (
     <>
       <nav className="flex items-center justify-between p-4">

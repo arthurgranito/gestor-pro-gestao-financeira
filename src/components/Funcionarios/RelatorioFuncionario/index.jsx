@@ -32,7 +32,7 @@ function RelatorioFuncionarios() {
         const querySnapshot = await getDocs(collection(db, 'funcionarios'));
         const data = querySnapshot.docs.map(doc => ({
           id: doc.id,
-          debito_total: doc.data().debito_total,
+          saldoTotal: doc.data().saldoTotal,
           nome: doc.data().nome,
         }));
         data.sort((a, b) => a.nome.localeCompare(b.nome));

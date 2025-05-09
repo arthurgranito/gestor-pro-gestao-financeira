@@ -25,7 +25,7 @@ const GraficoDePizza = ({
   const chartData = dados.map((item) => ({
     name: item.name,
     value: item.value,
-    fill: configuracaoCores[item.name]?.color || "#8884d8",
+    fill: configuracaoCores[item.name]?.color,
   }));
 
   return (

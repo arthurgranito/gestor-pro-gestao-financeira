@@ -4,7 +4,7 @@ import { collection, getDocs, doc } from "firebase/firestore";
 
 import { db } from "../../../firebaseConfig";
 
-import GraficoDePizza from "../GraficoDePizza"; // Importação corrigida
+import GraficoDePizza from "../GraficoDePizza";
 
 import LegendaTotalCategorias from "../LegendaTotalCategorias";
 import LegendaTotalSubCategorias from "../LegendaTotalSubCategorias";
@@ -42,29 +42,20 @@ const useFirebaseData = (
         let ref;
 
         if (documentIdParaSubcolecao && subcollectionName) {
-          // Buscar dados de uma subcoleção dentro de um documento
-
           const docRef = doc(db, collectionName, documentIdParaSubcolecao);
-
           ref = collection(docRef, subcollectionName);
         } else {
-          // Buscar dados de uma coleção raiz
-
           ref = collection(db, collectionName);
         }
-
         const snap = await getDocs(ref);
-
         const fetchedData = snap.docs.map((doc) => ({
           id: doc.id,
-
           ...doc.data(),
         }));
 
         setData(fetchedData);
       } catch (err) {
         console.error(`Erro ao buscar ${collectionName}:`, err);
-
         setError(`Erro ao carregar ${collectionName}.`);
       } finally {
         setLoading(false);
