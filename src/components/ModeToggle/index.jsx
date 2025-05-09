@@ -16,7 +16,7 @@ const ModeToggle = () => {
 
     return (
         <Button onClick={toggleTheme} className="w-full lg:w-9 sm: cursor-pointer">
-            {theme === "dark" ? <Sun size={10}/> : <MoonIcon />}
+            {theme === "dark" ? <Sun className="text-white"/> : <MoonIcon className="text-white"/>}
         </Button>
 )
 }
