@@ -148,6 +148,18 @@ function CadastroDespesa() {
           await updateDoc(funcionarioRef, {
             saldoTotal: novoSaltoTotal
           });
+
+          Toastify({
+            text: "Despesa cadastrado com sucesso!",
+            duration: 3000,
+            close: false,
+            gravity: "bottom",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "oklch(72.3% 0.219 149.579)",
+            },
+          }).showToast();
         } else {
           throw new Error('Funcionário não encontrado.')
         }
@@ -162,7 +174,18 @@ function CadastroDespesa() {
         });
       }
     } catch (error) {
-      console.error('Erro ao cadastrar despesa/contribuição:', error);
+      Toastify({
+            text: "Erro ao cadastrar despesa... Tente novamente",
+            duration: 3000,
+            close: false,
+            gravity: "bottom",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "#fb2c36",
+            },
+          }).showToast();
+      console.error('Erro ao cadastrar despesa:', error);
     } finally {
       setCategoria('');
       setData('');
