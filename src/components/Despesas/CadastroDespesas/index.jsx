@@ -204,7 +204,7 @@ function CadastroDespesa() {
             </Select>
           </div>
 
-          {categoria && (
+          {categoria.length > 0 && (
             <div>
               <Label htmlFor="subcategoria" className="mb-2">Subcategoria</Label>
               <Select value={subcategoria} onValueChange={setSubcategoria} required>
