@@ -37,7 +37,7 @@ function Cadastro() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Cadastro de Médium</CardTitle>
+                <CardTitle>Cadastro de Funcionário</CardTitle>
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
