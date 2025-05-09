@@ -51,7 +51,7 @@ function Cadastro() {
                             required
                         />
                     </div>
-                    <Button type="submit" disabled={isLoading}>
+                    <Button type="submit" disabled={isLoading} className="w-full">
                         {isLoading ? 'Cadastrando...' : 'Cadastrar'}
                     </Button>
                 </form>
